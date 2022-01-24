@@ -34,13 +34,8 @@ class User {
    * */
   static current() {
     
-    if(localStorage.user) {
-      const current = localStorage.user;
-      return JSON.parse(current);
-    }
-    else {
-      return undefined;
-    }
+    return JSON.parse(localStorage.getItem('user'));
+
   }
 
   /**
@@ -53,13 +48,11 @@ class User {
       method: 'GET',
       url: this.URL + '/current',
       callback: (err, response) => {
-        if (err === null) {
-          if (success === true) {
+          if (response && response.success) {
             this.setCurrent();
           }
           else {
             this.unsetCurrent();
-          }
         }
       }
     }
@@ -99,10 +92,8 @@ class User {
       url: this.URL + '/register',
       data,
       callback: (err, response) => {
-        if (err === null) {
-          if (success === true) {
+          if (response && response.success) {
             this.setCurrent(response.user);
-          }
         }
       }
     })
@@ -118,10 +109,8 @@ class User {
       url: this.URL + '/logout',
       data,
       callback: (err, response) => {
-        if (err === null) {
-          if (success === true) {
-            User.unsetCurrent();
-          }
+          if (response && response.success) {
+            this.unsetCurrent();
         }
       }
     })

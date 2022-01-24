@@ -13,6 +13,14 @@ class UserWidget {
    * */
   constructor(element){
 
+    try {
+      if (element) {
+        this.element = element;
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 
   /**
@@ -23,6 +31,8 @@ class UserWidget {
    * авторизованного пользователя
    * */
   update(){
-
+    const user = User.current();
+    const userName = document.querySelector('.user-name');
+    userName.textContent = user.name;
   }
 }

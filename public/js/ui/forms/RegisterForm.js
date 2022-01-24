@@ -1,3 +1,5 @@
+const { append } = require("express/lib/response");
+
 /**
  * Класс RegisterForm управляет формой
  * регистрации
@@ -10,6 +12,11 @@ class RegisterForm extends AsyncForm {
    * и закрывает окно, в котором находится форма
    * */
   onSubmit(data) {
-
+   User.register(data, (err, response) => {
+    if (response.success) {
+      App.state('user-logged');
+      (App.getModal('register')).close();
+    }
+   });
   }
 }
