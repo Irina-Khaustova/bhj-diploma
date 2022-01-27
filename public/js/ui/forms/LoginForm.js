@@ -1,4 +1,4 @@
-const { append } = require("express/lib/response")
+//const { append } = require("express/lib/response")
 
 /**
  * Класс LoginForm управляет формой
@@ -16,7 +16,7 @@ class LoginForm extends AsyncForm {
       if(response.success) {
         App.state('user-logged');
         (App.getModal('login')).close();
-        
+
       }
     })
   }

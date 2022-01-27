@@ -11,13 +11,9 @@ class User {
   static URL = '/user';
   static setCurrent(user) {
 
-    let userName = {
-      id: user.id,
-      name: user.name,
-    }
-
-    let data = JSON.stringify(userName);
-    localStorag.setItem('user', data) 
+    let data = JSON.stringify(user);
+    localStorage.setItem('user', data) 
+    console.log(localStorage.user)
   }
 
   /**
@@ -34,9 +30,9 @@ class User {
    * */
   static current() {
     
-    return JSON.parse(localStorage.getItem('user'));
-
-  }
+      return JSON.parse(localStorage.user);
+    
+  }  
 
   /**
    * Получает информацию о текущем
@@ -50,10 +46,12 @@ class User {
       callback: (err, response) => {
           if (response && response.success) {
             this.setCurrent();
+            callback(err, response);
           }
           else {
             this.unsetCurrent();
         }
+
       }
     }
     )
@@ -94,6 +92,7 @@ class User {
       callback: (err, response) => {
           if (response && response.success) {
             this.setCurrent(response.user);
+            callback(err, response);
         }
       }
     })

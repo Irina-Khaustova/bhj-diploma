@@ -14,14 +14,12 @@ class AsyncForm {
    * */
   constructor(element) {
     
-    try {
       if (element) {
         this.element = element;
       }
-    }
-    catch (e) {
-      console.log(e);
-    }
+      else {
+        throw new Error('ошибка');
+      }
 
     this.registerEvents();
   }
@@ -32,7 +30,7 @@ class AsyncForm {
    * */
   registerEvents() {
     
-    this.element.addEvntListener('submit', (e) => {
+    this.element.addEventListener('submit', (e) => {
       e.preventDefault();
       this.submit();
     })
@@ -50,10 +48,11 @@ class AsyncForm {
     
     const form = new FormData(this.element);
     let data = {};
-    entries = form.entries();
+     const entries = form.entries();
     for (let item of entries) {
       data[item[0]] = item[1];
     }
+    return data;
   }
 
   onSubmit(options){
@@ -66,7 +65,7 @@ class AsyncForm {
    * */
   submit() {
     
-  this.onsubmit(this.getData());
-  
+  this.onSubmit(this.getData());
+
   }
 }

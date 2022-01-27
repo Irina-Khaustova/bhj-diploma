@@ -13,14 +13,13 @@ class UserWidget {
    * */
   constructor(element){
 
-    try {
-      if (element) {
-        this.element = element;
-      }
+    if (element) {
+      this.element = element;
     }
-    catch (e) {
-      console.log(e);
+    else {
+      throw new Error('ошибка');
     }
+
   }
 
   /**

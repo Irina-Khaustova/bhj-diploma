@@ -22,12 +22,9 @@ class Sidebar {
     const sidebarMini = document.querySelector('.sidebar-mini');
 
     sidebarToggle.addEventListener('click', () => {
-      if (sidebarMini.classList.contains("sidebar-open")) {
-      sidebarMini.classList.remove("sidebar-open", "sidebar-collapse");
-      }
-      else {
-        sidebarMini.classList.add("sidebar-open", "sidebar-collapse");
-      }
+      
+      sidebarMini.classList.toggle("sidebar-open", "sidebar-collapse");
+      
     })
   }
 

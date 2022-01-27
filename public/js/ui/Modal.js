@@ -12,14 +12,13 @@ class Modal {
    * необходимо выкинуть ошибку.
    * */
   constructor(element){
-    try {
-      if (element) {
-        this.element = element;
-      }
+
+    if (element) {
+      this.element = element;
     }
-    catch (e) {
-      console.log(e);
-      }
+    else {
+      throw new Error('ошибка');
+    }
 
       this.registerEvents();
   }
@@ -35,7 +34,7 @@ class Modal {
     modals.forEach((item) => {
       item.addEventListener('click', (e) => {
         this.onClose();
-        e.preventDefoult();
+        e.preventDefault();
       })
     })
   }

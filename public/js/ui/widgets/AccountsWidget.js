@@ -3,8 +3,6 @@
  * отображения счетов в боковой колонке
  * */
 
-const { append } = require("express/lib/response");
-
 class AccountsWidget {
   /**
    * Устанавливает текущий элемент в свойство element
@@ -17,13 +15,11 @@ class AccountsWidget {
    * */
   constructor( element ) {
 
-    try {
-      if (element) {
-        this.element = element;
-      }
+    if (element) {
+      this.element = element;
     }
-    catch (e) {
-      console.log(e);
+    else {
+      throw new Error('ошибка');
     }
 
     this.registerEvents();
