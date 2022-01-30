@@ -30,7 +30,7 @@ class TransactionsPage {
    * */
   update() {
     
-   this.render(options);
+   this.render(this.lastOptions);
 
   }
 
@@ -116,6 +116,7 @@ class TransactionsPage {
 
     Transaction.List(options, (err, response) => {
       this.renderTransactions(response);
+      console.log(response)
     })
   }
 

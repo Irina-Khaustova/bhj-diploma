@@ -33,7 +33,7 @@ class Modal {
     const modals = Array.from(document.querySelectorAll('[data-dismiss="modal"]'));
     modals.forEach((item) => {
       item.addEventListener('click', (e) => {
-        this.onClose();
+        this.onClose(item);
         e.preventDefault();
       })
     })

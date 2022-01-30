@@ -13,7 +13,7 @@ class User {
 
     let data = JSON.stringify(user);
     localStorage.setItem('user', data) 
-    console.log(localStorage.user)
+    console.log(user, JSON.parse(data))
   }
 
   /**
@@ -22,6 +22,7 @@ class User {
    * */
   static unsetCurrent() {
     localStorage.removeItem('user');
+    console.log('user')
   }
 
   /**
@@ -30,7 +31,13 @@ class User {
    * */
   static current() {
     
-      return JSON.parse(localStorage.user);
+    if (localStorage.user) {
+      const current = localStorage.user;
+      return JSON.parse(current);
+  } else {
+      return null;
+  }
+      //return JSON.parse(localStorage.getItem('user'));
     
   }  
 
@@ -45,7 +52,7 @@ class User {
       url: this.URL + '/current',
       callback: (err, response) => {
           if (response && response.success) {
-            this.setCurrent();
+            this.current();
             callback(err, response);
           }
           else {
@@ -72,9 +79,11 @@ class User {
       callback: (err, response) => {
         if (response && response.user) {
           this.setCurrent(response.user);
+        } else {
+          console.log(response)
         }
-        callback(err, response);
-      }
+       callback(err, response);
+      } 
     });
   }
 
@@ -93,6 +102,9 @@ class User {
           if (response && response.success) {
             this.setCurrent(response.user);
             callback(err, response);
+            console.log(response)
+        } else {
+          console.log(response)
         }
       }
     })
@@ -106,11 +118,11 @@ class User {
     createRequest({
       method: 'POST',
       url: this.URL + '/logout',
-      data,
       callback: (err, response) => {
           if (response && response.success) {
             this.unsetCurrent();
         }
+        callback;
       }
     })
   }

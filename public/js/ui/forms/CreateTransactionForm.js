@@ -25,7 +25,7 @@ class CreateTransactionForm extends AsyncForm {
     
     if (this.element === newIncome) {
     Account.list(User.current(), (err, response) => {
-      newIncomeList.innerHTML = '';
+      //newIncomeList.innerHTML = '';
       let newList = [];
       for (let i = 0; i < response.length; i++) {
         newList.push(`<option value="${response[i].id}">${response[i].name}</option>`);
@@ -36,7 +36,7 @@ class CreateTransactionForm extends AsyncForm {
     
     if (this.element === newExpense) {
       Account.list(User.current(), (err, response) => {
-        newExpense.innerHTML = '';
+        //newExpense.innerHTML = '';
         let newList = [];
         for (let i = 0; i < response.length; i++) {
           newList.push(`<option value="${response[i].id}">${response[i].name}</option>`);

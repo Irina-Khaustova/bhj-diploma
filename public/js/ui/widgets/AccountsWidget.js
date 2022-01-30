@@ -36,13 +36,21 @@ class AccountsWidget {
   registerEvents() {
     
     const createAccount = document.querySelector('.create-account');
+    const allaccounts = Array.from(document.getElementsByClassName('account'));
+    //const nh = .querySelectorAll(".account")
+    console.log(allaccounts)
 
     createAccount.addEventListener('click', () => {
       (App.getModal('createAccount')).open();
+      //console.log(this.element)
 
-    this.element.addEventListener('click', (e) => {
+    
+    allaccounts.forEach((elem) => {
+      elem.addEventListener('click', (e) => {
       e.preventDefault();
       this.onSelectAccount(e.target.closest('.account'))
+      console.log(this.element)
+    })
     })
     })
   }
@@ -60,10 +68,13 @@ class AccountsWidget {
   update() {
     
     const user = User.current();
-    if (user) {
+    if (User.current()) {
       Account.list(user, (err, response) => {
+        if (response.success) {
         this.clear();
-        this.renderItem(response);
+        this.renderItem(response.data);
+        console.log(User.current())
+        }
       })
     }
   }
@@ -89,11 +100,17 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-
-    document.querySelector('.active').classList.remove('.active');
+    
+    if (element) {
+      for (const i of document.querySelectorAll('.account')) {
+          if (i.classList.contains('active')) {
+              i.classList.remove('active');
+          };
+      }
+  }
+   // console.log() 
     element.classlist.add('active');
     App.showPage('transactions', { account_id: element.dataset.id });
-
   }
 
   /**
@@ -102,13 +119,20 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML(item){
-    const html = `<li class="active account" data-id="${item.id}">
+    const html = document.createElement('div');
+    
+    html.innerHTML = `<li class="account" data-id="${item.id}">
                     <a href="#">
                       <span>${item.name}</span> /
                       <span>${item.sum} ₽</span>
                     </a>
                   </li>`
-        return html;
+        return html.firstChild;
+
+    //const html = document.createElement(li);
+    //li.classList.add("account");
+    //html.innerHTML =
+
   }
 
   /**
@@ -119,7 +143,7 @@ class AccountsWidget {
    * */
   renderItem(data){
     for (let i = 0; i < data.length; i++) {
-      this.element.insertAdjacentHTML('beforeend', this.getAccountHTML(data[i]));
+      this.element.insertAdjacentElement('beforeend', this.getAccountHTML(data[i]));
   };
   }
 }
