@@ -20,32 +20,33 @@ class CreateTransactionForm extends AsyncForm {
     
     const newIncome = document.querySelector('#new-income-form');
     const newExpense = document.querySelector('#new-expense-form');
-    const newIncomeList = document.querySelector('#expense-accounts-list');
-    const newExpenseList = document.querySelector('#income-accounts-list');
+    const newIncomeList = document.querySelector('#income-accounts-list'); 
+    const newExpenseList = document.querySelector('#expense-accounts-list');
+    newIncomeList.innerHTML = '';
+    newExpenseList.innerHTML = '';
     
     if (this.element === newIncome) {
-    Account.list(User.current(), (err, response) => {
-      //newIncomeList.innerHTML = '';
-      let newList = [];
-      for (let i = 0; i < response.length; i++) {
-        newList.push(`<option value="${response[i].id}">${response[i].name}</option>`);
-      }
-      newIncomeList.insertAdjacentHTML('beforeend', newList.join(''));
-    })
+      Account.list(User.current(), (err, response) => {
+        const accountSelect = response.data;
+        accountSelect.forEach(elem => {
+          let div1 = document.createElement('div');
+          div1.innerHTML = `<option value="${elem.id}">${elem.name}</option>`;
+          newIncomeList.insertAdjacentElement("beforeend", div1.firstChild);
+        })
+      })
     }
-    
+     
     if (this.element === newExpense) {
       Account.list(User.current(), (err, response) => {
-        //newExpense.innerHTML = '';
-        let newList = [];
-        for (let i = 0; i < response.length; i++) {
-          newList.push(`<option value="${response[i].id}">${response[i].name}</option>`);
-        }
-        newExpenseList.insertAdjacentHTML('beforeend', newList.join(''));
-      })
-      }
-
+        const accountSelect = response.data;
+        accountSelect.forEach(elem => {
+          let div1 = document.createElement('div');
+          div1.innerHTML = `<option value="${elem.id}">${elem.name}</option>`;
+          newExpenseList.insertAdjacentElement("beforeend", div1.firstChild);
+        })
+    })
   }
+}
 
   /**
    * Создаёт новую транзакцию (доход или расход)
@@ -57,8 +58,10 @@ class CreateTransactionForm extends AsyncForm {
     Transaction.create(data, (err, response) => {
       if (response.success) {
         App.update();
-        (App.getModal('newIncome')).close;
-        (App.getModal('newExpense')).close;
+        (App.getModal('newIncome')).close();
+        (App.getModal('newExpense')).close();
+      } else {
+        alert(response.error)
       }
     })
   }

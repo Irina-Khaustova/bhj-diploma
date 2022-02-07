@@ -10,10 +10,7 @@ class User {
    * */
   static URL = '/user';
   static setCurrent(user) {
-
-    let data = JSON.stringify(user);
-    localStorage.setItem('user', data) 
-    console.log(user, JSON.parse(data))
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   /**
@@ -22,7 +19,6 @@ class User {
    * */
   static unsetCurrent() {
     localStorage.removeItem('user');
-    console.log('user')
   }
 
   /**
@@ -30,15 +26,7 @@ class User {
    * из локального хранилища
    * */
   static current() {
-    
-    if (localStorage.user) {
-      const current = localStorage.user;
-      return JSON.parse(current);
-  } else {
-      return null;
-  }
-      //return JSON.parse(localStorage.getItem('user'));
-    
+      return JSON.parse(localStorage.getItem('user'));
   }  
 
   /**
@@ -79,12 +67,10 @@ class User {
       callback: (err, response) => {
         if (response && response.user) {
           this.setCurrent(response.user);
-        } else {
-          console.log(response)
         }
        callback(err, response);
       } 
-    });
+    })
   }
 
   /**
@@ -102,9 +88,8 @@ class User {
           if (response && response.success) {
             this.setCurrent(response.user);
             callback(err, response);
-            console.log(response)
         } else {
-          console.log(response)
+          console.log(response.error);
         }
       }
     })
@@ -121,8 +106,8 @@ class User {
       callback: (err, response) => {
           if (response && response.success) {
             this.unsetCurrent();
+            callback(err, response);
         }
-        callback;
       }
     })
   }

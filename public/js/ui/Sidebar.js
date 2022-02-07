@@ -22,9 +22,7 @@ class Sidebar {
     const sidebarMini = document.querySelector('.sidebar-mini');
 
     sidebarToggle.addEventListener('click', () => {
-      
       sidebarMini.classList.toggle("sidebar-open", "sidebar-collapse");
-      
     })
   }
 
@@ -36,7 +34,6 @@ class Sidebar {
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
- 
     const register = document.querySelector(".menu-item_register");
     const login = document.querySelector(".menu-item_login");
     const logout = document.querySelector(".menu-item_logout");
@@ -56,8 +53,7 @@ class Sidebar {
         if (response.success) {
         App.setState( 'init' );
         }
-      });
-    })
-     
+      })
+    }) 
   }
 }

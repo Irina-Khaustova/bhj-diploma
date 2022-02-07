@@ -13,13 +13,10 @@ class UserWidget {
    * */
   constructor(element){
 
-    if (element) {
-      this.element = element;
-    }
-    else {
+    if (!element) {
       throw new Error('ошибка');
     }
-
+    this.element = element;
   }
 
   /**
@@ -31,7 +28,6 @@ class UserWidget {
    * */
   update(){
     const user = User.current();
-    console.log(user)
     const userName = document.querySelector('.user-name');
     userName.textContent = user.name;
   }

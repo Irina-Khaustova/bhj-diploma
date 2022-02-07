@@ -1,6 +1,3 @@
-//const { response } = require("express");
-//const { options } = require("nodemon/lib/config");
-
 /**
  * Класс TransactionsPage управляет
  * страницей отображения доходов и
@@ -14,14 +11,10 @@ class TransactionsPage {
    * через registerEvents()
    * */
   constructor( element ) {
-  
-    if (element) {
-      this.element = element;
-    }
-    else {
+    if (!element) {
       throw new Error('ошибка');
     }
-
+    this.element = element;
     this.registerEvents();
   }
 
@@ -29,9 +22,7 @@ class TransactionsPage {
    * Вызывает метод render для отрисовки страницы
    * */
   update() {
-    
    this.render(this.lastOptions);
-
   }
 
   /**
@@ -43,16 +34,16 @@ class TransactionsPage {
   registerEvents() {
     
     const removeAccountButton = document.querySelector('.remove-account');
-    const transactions = Array.from(document.querySelectorAll('.transaction__remove'));
+    const transactions = document.querySelector('.content');
 
     removeAccountButton.addEventListener('click', () => {
       this.removeAccount();
     })
     
-      transactions.forEach(elem => {
-        elem.addEventListener('click', () => {
-          this.removeTransaction(removeTransactionButton.getAttribute('data-id'));
-      })
+    transactions.addEventListener('click', (e) => {
+      if (e.target.closest('.transaction__remove')) {
+        this.removeTransaction(e.target.closest('.transaction__remove').dataset.id);
+      }
     })
   }
 
@@ -66,14 +57,13 @@ class TransactionsPage {
    * для обновления приложения
    * */
   removeAccount() {
-    
     if (this.lastOptions) {
       if (confirm('Вы действительно хотите удалить счёт?')) {
-      Account.remove(options.Account.id, () => {
-        App.updateWidgets();
-      });
-      this.clear();
-  }
+        Account.remove(this.lastOptions.account_id, () => {
+          App.updateWidgets();
+        })
+        this.clear();
+      }
     } else {
       return;
     }
@@ -86,11 +76,10 @@ class TransactionsPage {
    * либо обновляйте текущую страницу (метод update) и виджет со счетами
    * */
   removeTransaction( id ) {
-    
     if (confirm('Вы действительно хотите удалить эту транзакцию?')) {
-    Transaction.remove(id, () => {
-      App.update();
-    })
+      Transaction.remove(id, () => {
+        App.update();
+      })
     }
   }
 
@@ -101,22 +90,19 @@ class TransactionsPage {
    * в TransactionsPage.renderTransactions()
    * */
   render(options){
-   
     if (!options) {
       return;
     }
-    else {
-      this.lastOptions = options;
-      Account.get(options.account_id, () => {
-        if (response.success) {
-          this.renderTitle(options.account_id);
-        }
-      })
-    }
+    this.lastOptions = options;
 
-    Transaction.List(options, (err, response) => {
-      this.renderTransactions(response);
-      console.log(response)
+    Account.get(this.lastOptions.account_id, (err, response) => {
+      if (response.success) {
+        this.renderTitle(response.data.name);
+      }
+    })
+
+    Transaction.list(options, (err, response) => {
+      this.renderTransactions(response.data);
     })
   }
 
@@ -127,7 +113,6 @@ class TransactionsPage {
    * Устанавливает заголовок: «Название счёта»
    * */
   clear() {
-    
     this.renderTransactions([]);
     this.renderTitle('название счёта');
     this.lastOptions = '';
@@ -137,9 +122,7 @@ class TransactionsPage {
    * Устанавливает заголовок в элемент .content-title
    * */
   renderTitle(name){
-  
     return document.querySelector('.content-title').textContent = name;
-
   }
 
   /**
@@ -147,7 +130,6 @@ class TransactionsPage {
    * в формат «10 марта 2019 г. в 03:20»
    * */
   formatDate(date){
-    
     const localDate = new Date(date);
         const options = {
             year: 'numeric',
@@ -165,7 +147,6 @@ class TransactionsPage {
    * item - объект с информацией о транзакции
    * */
   getTransactionHTML(item){
-    
     let html = `<div class="transaction transaction_${item.type} row">
           <div class="col-md-7 transaction__details">
             <div class="transaction__icon">
@@ -187,7 +168,7 @@ class TransactionsPage {
               </button>
           </div>
       </div>`
-        return html;
+    return html;
   }
 
   /**
@@ -195,13 +176,11 @@ class TransactionsPage {
    * используя getTransactionHTML
    * */
   renderTransactions(data){
-    
     const content = document.querySelector('.content');
     const contentArray = [];
     for (let i = 0; i < data.length; i++) {
       contentArray.push(this.getTransactionHTML(data[i]));
     }
     content.innerHTML = contentArray.join('');
-
   }
 }

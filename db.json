@@ -136,11 +136,6 @@
       "id": "2948858kz07hbhc"
     },
     {
-      "name": "приход",
-      "user_id": "2948augkyzvw22r",
-      "id": "29485ckkz07yeym"
-    },
-    {
       "name": "сбер",
       "user_id": "2948augkyzvw22r",
       "id": "2948860kz09gbse"
@@ -156,69 +151,29 @@
       "id": "2948bcskz154eei"
     },
     {
-      "name": "новый счёт",
+      "name": "наличные",
       "user_id": "2948augkyzvw22r",
-      "id": "29489awkz159q4c"
+      "id": "29488tckzbikq0s"
     },
     {
-      "name": "счёт 2",
+      "name": "втб",
       "user_id": "2948augkyzvw22r",
-      "id": "29489ykkz15q86j"
+      "id": "29489sgkzbin2my"
     },
     {
-      "name": "счёт 3",
+      "name": "открытие",
       "user_id": "2948augkyzvw22r",
-      "id": "29485xskz15rkgg"
+      "id": "29489wkkzbiosbm"
     },
     {
-      "name": "счёт 4",
+      "name": "совкомбанк",
       "user_id": "2948augkyzvw22r",
-      "id": "29488vwkz15zr5r"
+      "id": "2948buckzbipcz5"
     },
     {
-      "name": "счёт 5",
+      "name": "НЗ",
       "user_id": "2948augkyzvw22r",
-      "id": "29488bskz1612t5"
-    },
-    {
-      "name": "счёт 6",
-      "user_id": "2948augkyzvw22r",
-      "id": "29483r8kz168pjb"
-    },
-    {
-      "name": "счёт 7",
-      "user_id": "2948augkyzvw22r",
-      "id": "2948blgkz16rmb2"
-    },
-    {
-      "name": "счёт 8",
-      "user_id": "2948augkyzvw22r",
-      "id": "2948arwkz173miw"
-    },
-    {
-      "name": "счёт 9",
-      "user_id": "2948augkyzvw22r",
-      "id": "2948758kz17b8ju"
-    },
-    {
-      "name": "счёт 10",
-      "user_id": "2948augkyzvw22r",
-      "id": "29486s4kz17c662"
-    },
-    {
-      "name": "счёт 11",
-      "user_id": "2948augkyzvw22r",
-      "id": "2948a50kz17khny"
-    },
-    {
-      "name": "счёт 12",
-      "user_id": "2948augkyzvw22r",
-      "id": "29483yskz18qr2y"
-    },
-    {
-      "name": "счёт 13",
-      "user_id": "2948augkyzvw22r",
-      "id": "29489sskz1n4261"
+      "id": "29486fskzcxahj4"
     }
   ],
   "transactions": [
@@ -356,6 +311,96 @@
       "sum": 300000,
       "type": "expense",
       "user_id": "1"
+    },
+    {
+      "id": "29484iokzb45jgx",
+      "type": "income",
+      "name": "зарплата",
+      "sum": 200,
+      "account_id": "2948860kz09gbse",
+      "user_id": "2948augkyzvw22r",
+      "created_at": "2022-02-06T10:19:28.592Z"
+    },
+    {
+      "id": "2948algkzb4eyuc",
+      "type": "income",
+      "name": "зарплата",
+      "sum": 200,
+      "account_id": "29484askz09ohrm",
+      "user_id": "2948augkyzvw22r",
+      "created_at": "2022-02-06T10:26:48.419Z"
+    },
+    {
+      "id": "2948ahckzbi7y5c",
+      "type": "income",
+      "name": "зарплата",
+      "sum": 300,
+      "account_id": "2948860kz09gbse",
+      "user_id": "2948augkyzvw22r",
+      "created_at": "2022-02-06T16:53:15.551Z"
+    },
+    {
+      "id": "29489dokzbiifde",
+      "type": "income",
+      "name": "премия",
+      "sum": 500,
+      "account_id": "2948860kz09gbse",
+      "user_id": "2948augkyzvw22r",
+      "created_at": "2022-02-06T17:01:24.433Z"
+    },
+    {
+      "id": "29487gskzbiiy5i",
+      "type": "expense",
+      "name": "покупка",
+      "sum": 100,
+      "account_id": "2948860kz09gbse",
+      "user_id": "2948augkyzvw22r",
+      "created_at": "2022-02-06T17:01:48.773Z"
+    },
+    {
+      "id": "294829skzbiqwbz",
+      "type": "income",
+      "name": "зарплата",
+      "sum": 200,
+      "account_id": "2948buckzbipcz5",
+      "user_id": "2948augkyzvw22r",
+      "created_at": "2022-02-06T17:07:59.662Z"
+    },
+    {
+      "id": "2948agskzcwwyl4",
+      "type": "income",
+      "name": "зарплата",
+      "sum": 200,
+      "account_id": "29489wkkzbiosbm",
+      "user_id": "2948augkyzvw22r",
+      "created_at": "2022-02-07T16:32:23.319Z"
+    },
+    {
+      "id": "294835okzcx1gvb",
+      "type": "income",
+      "name": "зарплата",
+      "sum": 200,
+      "account_id": "2948860kz09gbse",
+      "user_id": "2948augkyzvw22r",
+      "created_at": "2022-02-07T16:35:53.638Z"
+    },
+    {
+      "id": "29483lckzcx8vfe",
+      "type": "expense",
+      "name": "продукты",
+      "sum": 200,
+      "account_id": "29488tckzbikq0s",
+      "user_id": "2948augkyzvw22r",
+      "created_at": "2022-02-07T16:41:39.097Z"
+    },
+    {
+      "id": "29486ekkzcx9wnz",
+      "type": "expense",
+      "name": "продукты",
+      "sum": 100,
+      "account_id": "2948860kz09gbse",
+      "user_id": "2948augkyzvw22r",
+      "created_at": "2022-02-07T16:42:27.358Z"
     }
   ]
 }

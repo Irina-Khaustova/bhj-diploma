@@ -15,13 +15,11 @@ class AccountsWidget {
    * */
   constructor( element ) {
 
-    if (element) {
-      this.element = element;
-    }
-    else {
+    if (!element) {
       throw new Error('ошибка');
     }
 
+    this.element = element;
     this.registerEvents();
     this.update(); 
   }
@@ -35,23 +33,17 @@ class AccountsWidget {
    * */
   registerEvents() {
     
+    
     const createAccount = document.querySelector('.create-account');
-    const allaccounts = Array.from(document.getElementsByClassName('account'));
-    //const nh = .querySelectorAll(".account")
-    console.log(allaccounts)
+    const accountsPanel = document.querySelector('.accounts-panel')
 
     createAccount.addEventListener('click', () => {
       (App.getModal('createAccount')).open();
-      //console.log(this.element)
+    })
 
-    
-    allaccounts.forEach((elem) => {
-      elem.addEventListener('click', (e) => {
+    accountsPanel.addEventListener('click', (e) => {
       e.preventDefault();
       this.onSelectAccount(e.target.closest('.account'))
-      console.log(this.element)
-    })
-    })
     })
   }
 
@@ -73,7 +65,7 @@ class AccountsWidget {
         if (response.success) {
         this.clear();
         this.renderItem(response.data);
-        console.log(User.current())
+        console.log(response.success)
         }
       })
     }
@@ -89,6 +81,7 @@ class AccountsWidget {
     const accounts = Array.from(document.querySelectorAll('.account'));
     accounts.forEach(elem => {
       elem.remove();
+      //console.log(accounts)
     })
   }
 
@@ -100,17 +93,13 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-    
     if (element) {
-      for (const i of document.querySelectorAll('.account')) {
-          if (i.classList.contains('active')) {
-              i.classList.remove('active');
-          };
-      }
-  }
-   // console.log() 
-    element.classlist.add('active');
+          if (document.querySelector('.active')) {
+              document.querySelector('.active').classList.remove('active');
+          }
+    element.classList.add('.active');
     App.showPage('transactions', { account_id: element.dataset.id });
+    }
   }
 
   /**
@@ -120,19 +109,13 @@ class AccountsWidget {
    * */
   getAccountHTML(item){
     const html = document.createElement('div');
-    
     html.innerHTML = `<li class="account" data-id="${item.id}">
                     <a href="#">
                       <span>${item.name}</span> /
                       <span>${item.sum} ₽</span>
                     </a>
                   </li>`
-        return html.firstChild;
-
-    //const html = document.createElement(li);
-    //li.classList.add("account");
-    //html.innerHTML =
-
+    return html.firstChild;
   }
 
   /**
@@ -144,6 +127,6 @@ class AccountsWidget {
   renderItem(data){
     for (let i = 0; i < data.length; i++) {
       this.element.insertAdjacentElement('beforeend', this.getAccountHTML(data[i]));
-  };
+    };
   }
 }
